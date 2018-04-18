@@ -13,16 +13,20 @@ $(document).ready(function(){
 		//alert(courses_list.length);
 
 		var myNode = document.getElementById("sel");
-		while (myNode.firstChild) {
-		    myNode.removeChild(myNode.firstChild);
+		if (myNode != null){
+			while (myNode.firstChild) {
+			    myNode.removeChild(myNode.firstChild);
+			}
 		}
 
 		var i = 0;
 		for (i = 0; i < courses_list.length; i++) {
 			var select = document.getElementById("sel");
-			var option = document.createElement("option");
-			option.appendChild(document.createTextNode(courses_list[i]));
-			select.appendChild(option);
+			if (select != null){
+				var option = document.createElement("option");
+				option.appendChild(document.createTextNode(courses_list[i]));
+				select.appendChild(option);
+			}
 		}
 		
 	}
@@ -62,6 +66,8 @@ $(document).ready(function(){
 		var courses_list = localStorage.getItem('courses_list');
 		courses_list = courses_list.replace(num, '');
 		localStorage.setItem('courses_list', courses_list);
+
+		refresh_dropdown();
 	});
 
 
