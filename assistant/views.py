@@ -29,6 +29,8 @@ def courses_list(request):
 
 def get_course_detail(request):
     course_num = request.GET.get('num', '')
+    courses_list = request.GET.get('courses_list', '')
+    print(courses_list)
     try:
         course_details = Courses_timings.objects.get(course_num=course_num)
         course_info = Courses_info.objects.get(course_num=course_num)
