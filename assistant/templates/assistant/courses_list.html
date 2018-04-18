@@ -16,10 +16,10 @@
       {% for course_detail in courses_details %}
       <tr>
         <td>{{ course_detail.course_num }}</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-        <td>a</td>
-        <td>{{ course_detail.timings }}</td>
+        <td>{{ course_detail.course_name }}</td>
+        <td>{{ course_detail.course_instructor_name }}</td>
+        <td>{{ course_detail.course_credits }}</td>
+        <td>{{ course_detail.course_timings }}</td>
       </tr>
       {% endfor %}
     </tbody>

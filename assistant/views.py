@@ -13,21 +13,39 @@ def index(request):
 
 def courses_list(request):
     courses_timings_list = Courses_timings.objects.all()
-    # courses_info_list = Courses_info.objects.filter(course_num=)
-    context = {'courses_details': courses_timings_list}
+    details = []
+    for course_timings in courses_timings_list:
+        course_info = Courses_info.objects.get(course_num=course_timings.course_num)
+        s = {
+                "course_num": course_timings.course_num,
+                "course_name": course_info.course_name,
+                "course_instructor_name": course_info.course_instructor_name,
+                "course_credits": course_info.course_credits,
+                "course_timings": course_timings.timings
+                }
+        details.append(s)
+    context = {'courses_details': details}
     return render(request, 'assistant/courses_list.html', context)
 
 def get_course_detail(request):
     course_num = request.GET.get('num', '')
     try:
         course_details = Courses_timings.objects.get(course_num=course_num)
+        course_info = Courses_info.objects.get(course_num=course_num)
         data = {
                 'course_num': course_details.course_num,
                 'timings': course_details.timings,
-                'course_name': '',
-                'instructor': '',
-                'credits': ''
+                'course_name': course_info.course_name,
+                'instructor': course_info.course_instructor_name,
+                'credits': course_info.course_credits
                 }
         return HttpResponse(json.dumps(data), content_type="application/json")
     except:
         return HttpResponse("")
+
+def get_non_conflicting_courses(request):
+    courses_list = request.GET.get('nums', '')
+    return HttpResponse(courses_list)
+
+def course_add(request):
+    return HttpResponse("")
