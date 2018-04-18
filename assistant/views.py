@@ -115,4 +115,14 @@ def get_non_conflicting_courses(request):
     return HttpResponse("")
 
 def course_add(request):
+    course_num = request.GET.get('course_num', '')
+    course_name = request.GET.get('course_name', '')
+    course_instructor_name = request.GET.get('course_instructor', '')
+    course_credits = request.GET.get('course_credits', '')
+    course_timings = request.GET.get('course_timings', '')
+    # print(course_num, course_name, course_instructor_name, course_credits, course_timings)
+    p = Courses_timings(course_num=course_num, timings=course_timings)
+    p.save()
+    q = Courses_info(course_num=course_num, course_name=course_name, course_instructor_name=course_instructor_name, course_credits=int(course_credits))
+    q.save()
     return HttpResponse("")

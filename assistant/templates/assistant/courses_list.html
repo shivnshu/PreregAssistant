@@ -4,7 +4,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Course Number</th>
+        <th align="right">Course Number</th>
         <th>Course Name</th>
         <th>Instructor</th>
         <th>Credits</th>
@@ -25,4 +25,35 @@
     </tbody>
     {% endif %}
   </table>
+
+<div class="row clearfix">
+        <div class="col-md-12 column">
+                <table class="table table-bordered table-hover" id="tab_logic">
+                        <thead>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td>
+                                                <input id='course_num' type='text' placeholder='Course Number' class='form-control input-md'/> 
+                                        </td>
+                                        <td>
+                                                <input id='course_name' type='text' placeholder='Course Name' class='form-control input-md'/> 
+                                        </td>
+                                        <td>
+                                                <input id='course_instructor' type='text' placeholder='Instructor' class='form-control input-md'/> 
+                                        </td>
+                                        <td>
+                                                <input id='course_credits' type='number' placeholder='Credits' class='form-control input-md'/> 
+                                        </td>
+                                        <td>
+                                                <input id='course_timings' type='text' placeholder='Timings' class='form-control input-md'/> 
+                                        </td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+</div>
+
+<a id="add_course" class="btn btn-default pull-left">Add Course</a>
+
 {% endblock %}

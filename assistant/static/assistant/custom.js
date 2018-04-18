@@ -46,4 +46,22 @@ $(document).ready(function(){
 		localStorage.setItem('courses_list', courses_list);
 	});
 
+
+	$("#add_course").click(function(){
+		var course_num =  document.getElementById("course_num").value;
+		var course_name =  document.getElementById("course_name").value;
+		var course_instructor =  document.getElementById("course_instructor").value;
+		var course_credits =  document.getElementById("course_credits").value;
+		var course_timings =  document.getElementById("course_timings").value;
+		//alert(course_num+course_name+course_instructor+course_credits+course_timings);
+
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.open( "GET", "/course_add?course_num="+course_num+"&course_name="+course_name+"&course_instructor="+course_instructor+"&course_credits="+course_credits+
+"&course_timings="+course_timings, false );
+		xmlHttp.send( null );
+
+		//console(xmlHttp.responseText);
+		window.location.reload();
+	});
+
 });
