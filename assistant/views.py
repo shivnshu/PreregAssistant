@@ -110,7 +110,8 @@ def get_non_conflicting_courses(request):
     for course in all_courses:
         # print(len(course.timings.split()))
         if (not check_course_conflict(course.timings, courses_list_timings)):
-            ans_courses.append(course.course_num)
+            c_info = Courses_info.objects.get(course_num=course.course_num)
+            ans_courses.append(course.course_num + " (" + c_info.course_name + ")")
     print(ans_courses)
     return HttpResponse(json.dumps(ans_courses), content_type="application/json")
 

@@ -34,7 +34,7 @@ $(document).ready(function(){
 	refresh_dropdown();
 
 	$("#add_row").click(function(){
-		var course = $('#sel').val();
+		var course = $('#sel').val().split(" ")[0];
 
 		var courses_list = localStorage.getItem('courses_list');
 		courses_list = courses_list + " " + course;
