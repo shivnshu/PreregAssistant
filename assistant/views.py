@@ -5,8 +5,56 @@ from django.http import HttpResponse
 from .models import Courses_timings, Courses_info
 import json
 
-def check_course_conflict(timing, timings):
-    return True
+def check_time_conflict(times, busy_times):
+    times = times.replace(':', '')
+    busy_times = busy_times.replace(':', '')
+    
+    times = times.split('-')
+    busy_times = busy_times.split('-')
+
+    smaller = min(int(times[0]), int(busy_times[0]))
+    larger = max(int(times[1]), int(busy_times[1]))
+
+    if (larger-smaller < int(times[1])-int(times[0])+int(busy_times[1])-int(busy_times[0])):
+        return True
+    return False
+
+def check_days_conflict(days, busy_days):
+    days = list(days)
+    busy_days = list(busy_days)
+    for i in range(len(days)):
+        if days[i].islower():
+            days[i-1] += days[i]
+            days.pop(i)
+            break
+    for i in range(len(busy_days)):
+        if busy_days[i].islower():
+            busy_days[i-1] += busy_days[i]
+            busy_days.pop(i)
+            break
+
+    for c1 in days:
+        for c2 in busy_days:
+            if (c1 == c2):
+                return True
+
+    return False
+
+def check_course_conflict(timing, busy_timings):
+    timing = timing.split()
+    for busy_timing in busy_timings:
+        busy_timing = busy_timing.split()
+        for i in range(len(timing)//2):
+            days = timing[2*i]
+            for j in range(len(busy_timing)//2):
+                busy_days = busy_timing[2*j]
+                if (not check_days_conflict(days, busy_days)):
+                    continue
+                times = timing[2*i+1]
+                busy_times = busy_timing[2*j+1]
+                if (check_time_conflict(times, busy_times)):
+                    return True
+    return False
 
 def index(request):
     courses_timings_list = Courses_timings.objects.all()
@@ -51,15 +99,16 @@ def get_course_detail(request):
 def get_non_conflicting_courses(request):
     courses_list = request.GET.get('courses_list', '')
     courses_list = courses_list.split()
-    print(courses_list)
+    # print(courses_list)
     courses_list_timings = []
     for course_num in courses_list:
         course = Courses_timings.objects.get(course_num=course_num)
         courses_list_timings.append(course.timings)
-    print(courses_list_timings)
+    # print(courses_list_timings)
     all_courses = Courses_timings.objects.all()
     ans_courses = []
     for course in all_courses:
+        # print(len(course.timings.split()))
         if (not check_course_conflict(course.timings, courses_list_timings)):
             ans_courses.append(course.course_num)
     print(ans_courses)
