@@ -5,6 +5,9 @@ from django.http import HttpResponse
 from .models import Courses_timings, Courses_info
 import json
 
+def check_course_conflict(timing, timings):
+    return True
+
 def index(request):
     courses_timings_list = Courses_timings.objects.all()
     context = {'dropdown_courses': courses_timings_list}
@@ -30,7 +33,7 @@ def courses_list(request):
 def get_course_detail(request):
     course_num = request.GET.get('num', '')
     courses_list = request.GET.get('courses_list', '')
-    print(courses_list)
+    # print(courses_list)
     try:
         course_details = Courses_timings.objects.get(course_num=course_num)
         course_info = Courses_info.objects.get(course_num=course_num)
@@ -46,8 +49,21 @@ def get_course_detail(request):
         return HttpResponse("")
 
 def get_non_conflicting_courses(request):
-    courses_list = request.GET.get('nums', '')
-    return HttpResponse(courses_list)
+    courses_list = request.GET.get('courses_list', '')
+    courses_list = courses_list.split()
+    print(courses_list)
+    courses_list_timings = []
+    for course_num in courses_list:
+        course = Courses_timings.objects.get(course_num=course_num)
+        courses_list_timings.append(course.timings)
+    print(courses_list_timings)
+    all_courses = Courses_timings.objects.all()
+    ans_courses = []
+    for course in all_courses:
+        if (not check_course_conflict(course.timings, courses_list_timings)):
+            ans_courses.append(course.course_num)
+    print(ans_courses)
+    return HttpResponse("")
 
 def course_add(request):
     return HttpResponse("")

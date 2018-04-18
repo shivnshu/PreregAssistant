@@ -1,6 +1,16 @@
 $(document).ready(function(){
 	var i=0;
 	localStorage.setItem('courses_list' , '');
+
+
+	function refresh_dropdown(){
+		var courses_list = localStorage.getItem('courses_list');
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.open( "GET", "/get_non_conflicting_courses?courses_list="+courses_list, false );
+		xmlHttp.send( null );
+		//alert(xmlHttp.responseText);
+	}
+
 	$("#add_row").click(function(){
 		var course = $('#sel').val();
 
@@ -18,8 +28,11 @@ $(document).ready(function(){
 
 		$('#tab_logic').append('<tr id="addr'+(i+1)+'" class="added_courses"></tr>');
 		i++;
+		
+		refresh_dropdown();
 
 	});
+
 
 	$(document).on('click','.delete_row',function(){		
 		var fired_button = $(this).val();
