@@ -5,7 +5,8 @@ from django.http import HttpResponse
 from .models import Courses_timings, Courses_info
 
 def index(request):
-    context = {}
+    courses_timings_list = Courses_timings.objects.all()
+    context = {'dropdown_courses': courses_timings_list}
     return render(request, 'assistant/index.html', context)
     # return HttpResponse("Welcome to assistant!")
 

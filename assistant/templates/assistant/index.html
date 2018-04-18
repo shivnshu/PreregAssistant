@@ -27,6 +27,14 @@
                                 </tr>
                         </thead>
                         <tbody>
+                                <!--<tr>-->
+                                        <!--<td>a</td>-->
+                                        <!--<td>b</td>-->
+                                        <!--<td>c</td>-->
+                                        <!--<td>d</td>-->
+                                        <!--<td>e</td>-->
+                                        <!--<td style=""><button type="button" class="btn btn-danger">X</button></td>-->
+                                <!--</tr>-->
                                 <tr id='addr0'></tr>
                         </tbody>
                 </table>
@@ -37,7 +45,11 @@
     <div class="form-group">
       <label for="sel">Choose a course from the list</label>
       <select class="form-control" id="sel">
-        <option>1</option>
+        {% if dropdown_courses %}
+        {% for dropdown_course in dropdown_courses %}
+        <option>{{ dropdown_course.course_num }}</option>
+        {% endfor %}
+        {% endif %}
       </select>
 </form>
 
