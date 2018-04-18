@@ -9,7 +9,25 @@ $(document).ready(function(){
 		xmlHttp.open( "GET", "/get_non_conflicting_courses?courses_list="+courses_list, false );
 		xmlHttp.send( null );
 		//alert(xmlHttp.responseText);
+		courses_list = JSON.parse(xmlHttp.responseText);
+		//alert(courses_list.length);
+
+		var myNode = document.getElementById("sel");
+		while (myNode.firstChild) {
+		    myNode.removeChild(myNode.firstChild);
+		}
+
+		var i = 0;
+		for (i = 0; i < courses_list.length; i++) {
+			var select = document.getElementById("sel");
+			var option = document.createElement("option");
+			option.appendChild(document.createTextNode(courses_list[i]));
+			select.appendChild(option);
+		}
+		
 	}
+	
+	refresh_dropdown();
 
 	$("#add_row").click(function(){
 		var course = $('#sel').val();

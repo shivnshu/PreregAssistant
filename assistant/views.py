@@ -112,7 +112,8 @@ def get_non_conflicting_courses(request):
         if (not check_course_conflict(course.timings, courses_list_timings)):
             ans_courses.append(course.course_num)
     print(ans_courses)
-    return HttpResponse("")
+    return HttpResponse(json.dumps(ans_courses), content_type="application/json")
+
 
 def course_add(request):
     course_num = request.GET.get('course_num', '')
