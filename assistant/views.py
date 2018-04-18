@@ -11,5 +11,6 @@ def index(request):
 
 def courses_list(request):
     courses_timings_list = Courses_timings.objects.all()
-    context = {'courses_timings_list': courses_timings_list}
+    # courses_info_list = Courses_info.objects.filter(course_num=)
+    context = {'courses_details': courses_timings_list}
     return render(request, 'assistant/courses_list.html', context)

@@ -11,14 +11,18 @@
         <th>Timings</th>
       </tr>
     </thead>
+    {% if courses_details %}
     <tbody>
+      {% for course_detail in courses_details %}
       <tr>
-        <td>John</td>
+        <td>{{ course_detail.course_num }}</td>
         <td>Doe</td>
         <td>john@example.com</td>
         <td>a</td>
-        <td>b</td>
+        <td>{{ course_detail.timings }}</td>
       </tr>
+      {% endfor %}
     </tbody>
+    {% endif %}
   </table>
 {% endblock %}

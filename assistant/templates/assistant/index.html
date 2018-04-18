@@ -1,30 +1,47 @@
 {% extends 'assistant/base.html' %}
 
 {% block content %}
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
-  </table>
+
+<div class="row clearfix">
+        <div class="col-md-12 column">
+                <table class="table table-bordered table-hover" id="tab_logic">
+                        <thead>
+                                <tr >
+                                        <th class="text-center">
+                                                Course Number
+                                        </th>
+                                        <th class="text-center">
+                                                Course Name
+                                        </th>
+                                        <th class="text-center">
+                                                Instructor
+                                        </th>
+                                        <th class="text-center">
+                                                Credits
+                                        </th>
+                                        <th class="text-center">
+                                                Timings
+                                        </th>
+                                        <th>
+                                        </th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr id='addr0'></tr>
+                        </tbody>
+                </table>
+        </div>
+</div>
+
+<form>
+    <div class="form-group">
+      <label for="sel">Choose a course from the list</label>
+      <select class="form-control" id="sel">
+        <option>1</option>
+      </select>
+</form>
+
+<a id="add_row" class="btn btn-default pull-left">Add Row</a>
+<!--<a id='delete_row' class="pull-right btn btn-default">Delete Row</a>-->
+
 {% endblock %}
